@@ -1,6 +1,7 @@
 package joelbits.cloners;
 
 import com.google.auto.service.AutoService;
+import joelbits.Settings;
 import joelbits.cloners.spi.Clone;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
