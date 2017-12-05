@@ -21,7 +21,7 @@ public class GitCloner implements Clone {
     /**
      * Clones git repositories from one location to another.
      *
-     * @param sourcePath        the path to the git repositories to clone, e.g., https://github.com/
+     * @param sourcePath        the path of the git repositories to clone, e.g., https://github.com/
      * @param destinationPath   the path to where the cloned repositories should end up (locally)
      * @param repositories      the full name of git repositories to clone, e.g., JCTools/JCTools
      */
@@ -36,6 +36,7 @@ public class GitCloner implements Clone {
             executorService.execute(new Cloner(remoteRepositoryPath, localRepositoryPath));
         }
         executorService.shutdown();
+        log.info("Cloning completed");
     }
 
     class Cloner implements Runnable {
