@@ -22,7 +22,7 @@ public class GitCloner implements Clone {
      * Clones git repositories from one location to another.
      *
      * @param sourcePath        the path of the git repositories to clone, e.g., https://github.com/
-     * @param destinationPath   the path to where the cloned repositories should end up (locally)
+     * @param destinationPath   the path to where the cloned repositories should end up, e.g., C:\gitProjects/
      * @param repositories      the full name of git repositories to clone, e.g., JCTools/JCTools
      */
     @Override
@@ -43,7 +43,7 @@ public class GitCloner implements Clone {
         private final String sourcePath;
         private final String destinationPath;
 
-        public Cloner(String sourcePath, String destinationPath) {
+        Cloner(String sourcePath, String destinationPath) {
             this.sourcePath = sourcePath;
             this.destinationPath = destinationPath;
         }
@@ -54,6 +54,8 @@ public class GitCloner implements Clone {
                     .setURI(sourcePath)
                     .setDirectory(Paths.get(destinationPath).toFile())
                     .call()) {
+
+                log.info(sourcePath + " cloned");
             } catch (GitAPIException e) {
                 log.error(e.toString(), e);
             }
