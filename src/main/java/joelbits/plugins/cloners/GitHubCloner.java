@@ -1,37 +1,37 @@
-package joelbits.cloners;
+package joelbits.plugins.cloners;
 
 import com.google.auto.service.AutoService;
-import joelbits.Settings;
-import joelbits.cloners.spi.Clone;
+import joelbits.plugins.Settings;
+import joelbits.plugins.cloners.spi.Clone;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @AutoService(Clone.class)
-public class GitCloner implements Clone {
-    private static final Logger log = LoggerFactory.getLogger(GitCloner.class);
+public class GitHubCloner implements Clone {
+    private static final Logger log = LoggerFactory.getLogger(GitHubCloner.class);
+    private static final String GITHUB = "https://github.com/";
 
     /**
-     * Clones git repositories from one location to another.
+     * Clones git repositories from GitHub to local directory.
      *
-     * @param sourcePath        the path of the git repositories to clone, e.g., https://github.com/
-     * @param destinationPath   the path to where the cloned repositories should end up, e.g., C:\gitProjects/
      * @param repositories      the full name of git repositories to clone, e.g., JCTools/JCTools
      */
     @Override
-    public void clone(String sourcePath, String destinationPath, List<String> repositories) {
+    public void clone(List<String> repositories) {
         ExecutorService executorService = Executors.newFixedThreadPool(new Settings().numberOfThreads());
 
         for (String repository : repositories) {
-            String remoteRepositoryPath = sourcePath + repository + Constants.DOT_GIT;
-            String localRepositoryPath = destinationPath + repository;
+            String remoteRepositoryPath = GITHUB + repository + Constants.DOT_GIT;
+            String localRepositoryPath = System.getProperty("user.dir") + File.separator + repository;
 
             executorService.execute(new Cloner(remoteRepositoryPath, localRepositoryPath));
         }
@@ -64,6 +64,6 @@ public class GitCloner implements Clone {
 
     @Override
     public String toString() {
-        return "GitCloner";
+        return "GitHubCloner";
     }
 }
