@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @AutoService(Clone.class)
 public class GitHubCloner implements Clone {
@@ -36,6 +37,12 @@ public class GitHubCloner implements Clone {
             executorService.execute(new Cloner(remoteRepositoryPath, localRepositoryPath));
         }
         executorService.shutdown();
+        try {
+            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            log.error(e.toString(), e);
+        }
+
         log.info("Cloning completed");
     }
 
