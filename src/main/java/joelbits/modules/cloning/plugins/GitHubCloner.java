@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class GitHubCloner implements Clone {
     private static final Logger log = LoggerFactory.getLogger(GitHubCloner.class);
     private static final String GITHUB = "https://github.com/";
+    private static final String REPOSITORY_DIRECTORY = File.separator + "repositories" + File.separator;
 
     /**
      * Clones git repositories from GitHub to local directory.
@@ -32,7 +33,7 @@ public class GitHubCloner implements Clone {
 
         for (String repository : repositories) {
             String remoteRepositoryPath = GITHUB + repository + Constants.DOT_GIT;
-            String localRepositoryPath = System.getProperty("user.dir") + File.separator + repository;
+            String localRepositoryPath = System.getProperty("user.dir") + REPOSITORY_DIRECTORY + repository;
 
             executorService.execute(new Cloner(remoteRepositoryPath, localRepositoryPath));
         }
