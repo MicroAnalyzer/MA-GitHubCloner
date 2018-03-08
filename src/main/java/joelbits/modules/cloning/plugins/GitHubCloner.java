@@ -1,8 +1,8 @@
-package joelbits.plugins.cloners;
+package joelbits.modules.cloning.plugins;
 
 import com.google.auto.service.AutoService;
-import joelbits.plugins.Settings;
-import joelbits.plugins.cloners.spi.Clone;
+import joelbits.modules.cloning.Settings;
+import joelbits.modules.cloning.plugins.spi.Clone;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Constants;
@@ -71,6 +71,6 @@ public class GitHubCloner implements Clone {
 
     @Override
     public String toString() {
-        return "GitHubCloner";
+        return "github";
     }
 }
