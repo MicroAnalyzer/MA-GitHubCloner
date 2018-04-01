@@ -1,6 +1,6 @@
 # MA-GitHubCloner
 
-A MicroAnalyzer plug-in for cloning GitHub repositories.
+A [MicroAnalyzer](https://github.com/joelBIT/MicroAnalyzer) plug-in for cloning GitHub repositories.
 
 ## How To Compile Sources
 
